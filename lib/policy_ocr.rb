@@ -1,15 +1,21 @@
 module PolicyOcr
 
   def self.parse
+    #opens file
     @file = File.open("spec/fixtures/sample.txt")
+    #reads file lines
     @lines = @file.read.lines
 
+    #iterates through lines in file
     @lines.each_with_index do |x, i|
-    # @a starts from the bottom of the number "|_|" @b is the middle "| |" @c is the top " _ ". ex: 0
+    #turn each line of the code into characters then divides them in groups of three ["   ", " _ ","   "]
+    #each line has 9 numbers [[],[],[],[],[],[],[],[],[]] each array is the length of 3
+    #@a starts from the bottom section of the number "|_|" @b is the middle section "| |" @c is the top section " _ ". ex: 0
       @a = @lines[i].chars.each_slice(3).reject { |a| a.include? "\n" }.to_a
       @b = @lines[i - 1].chars.each_slice(3).reject { |a| a.include? "\n" }.to_a
       @c = @lines[i - 2].chars.each_slice(3).reject { |a| a.include? "\n" }.to_a
 
+    #joins together all the groups of three and checks corresponding sections for a number
       if @a[0].join == "|_|" && @b[0].join == "| |" && @c[0].join == " _ "
         print "0"
       elsif @a[0].join == "  |" && @b[0].join == "  |" && @c[0].join == "   " 
