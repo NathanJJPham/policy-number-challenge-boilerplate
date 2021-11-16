@@ -5,6 +5,7 @@ module PolicyOcr
     @lines = @file.read.lines
 
     @lines.each_with_index do |x, i|
+    # @a starts from the bottom of the number "|_|" @b is the middle "| |" @c is the top " _ ". ex: 0
       @a = @lines[i].chars.each_slice(3).reject { |a| a.include? "\n" }.to_a
       @b = @lines[i - 1].chars.each_slice(3).reject { |a| a.include? "\n" }.to_a
       @c = @lines[i - 2].chars.each_slice(3).reject { |a| a.include? "\n" }.to_a
