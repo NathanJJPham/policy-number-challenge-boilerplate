@@ -1,6 +1,6 @@
 module PolicyOcr
-
   def self.parse
+    blank_answer_array = []
     #opens file
     @file = File.open("spec/fixtures/sample.txt")
     #reads file lines
@@ -15,31 +15,38 @@ module PolicyOcr
       @c = @lines[i - 2].chars.each_slice(3).reject { |a| a.include? "\n" }.to_a
     #joins together each group of three and checks corresponding sections for a number
       x = 0
+      test = []
       while x < 9
         if @a[x].join == "|_|" && @b[x].join == "| |" && @c[x].join == " _ "
-          print "0"
+          test.push("0")
         elsif @a[x].join == "  |" && @b[x].join == "  |" && @c[x].join == "   " 
-          print "1"
+          test.push("1")
         elsif @a[x].join == "|_ " && @b[x].join == " _|" && @c[x].join == " _ "
-          print "2"
+          test.push("2")
         elsif @a[x].join == " _|" && @b[x].join == " _|" && @c[x].join == " _ "  
-          print "3"
+          test.push("3")
         elsif @a[x].join == "  |" && @b[x].join == "|_|" && @c[x].join == "   " 
-          print "4"
+          test.push("4")
         elsif @a[x].join == " _|" && @b[x].join == "|_ " && @c[x].join == " _ "
-          print "5"
+          test.push("5")
         elsif @a[x].join == "|_|" && @b[x].join == "|_ " && @c[x].join == " _ " 
-          print "6"
+          test.push("6")
         elsif @a[x].join == "  |" && @b[x].join == "  |" && @c[x].join == " _ " 
-          print "7"
+          test.push("7")
         elsif @a[x].join == "|_|" && @b[x].join == "|_|" && @c[x].join == " _ " 
-          print "8"
+          test.push("8")
         elsif @a[x].join == " _|" && @b[x].join == "|_|" && @c[x].join == " _ " 
-          print "9"
+          test.push("9")
         end
         x += 1
       end
+      if test.length > 0
+        blank_answer_array << test.join
+      end
     end
+    blank_answer_array
   end
-
 end
+
+
+
