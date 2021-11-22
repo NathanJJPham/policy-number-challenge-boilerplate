@@ -44,9 +44,15 @@ module PolicyOcr
         blank_answer_array << test.join
       end
     end
-    blank_answer_array
+
+    valid_array = []
+    blank_answer_array.map do |x| 
+      if (x[8].to_i + (x[7].to_i * 2) + (x[6].to_i * 3) + (x[5].to_i * 4) + (x[4].to_i * 5) + (x[3].to_i * 6) + (x[2].to_i * 7) + (x[1].to_i * 8) + (x[0].to_i * 9)) % 11 == 0 
+        valid_array.push("valid")
+      else
+        valid_array.push("not valid")
+      end
+    end
+    valid_array
   end
 end
-
-
-
